@@ -3014,6 +3014,10 @@ function App() {
   };
 
   const navigateTo = (p) => {
+    if (p === 'logout') {
+      handleLogout();
+      return;
+    }
     setPage(p);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3208,6 +3212,7 @@ function App() {
     { id: 'contact', label: 'Contact Us', icon: 'mail' },
     ...(user?.is_admin ? [{ id: 'admin', label: 'Admin', icon: 'shield' }] : []),
     { id: 'profile', label: 'Profile', icon: 'user' },
+    { id: 'logout', label: 'Logout', icon: 'logout' },
   ];
 
   return (
@@ -3276,9 +3281,9 @@ function App() {
                 display: 'flex', alignItems: 'center', gap: 7, padding: '8px 16px',
                 borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
                 background: page === item.id ? t.primaryLight : 'transparent',
-                color: page === item.id ? t.primary : t.textSecondary,
+                color: item.id === 'logout' ? t.danger : (page === item.id ? t.primary : t.textSecondary),
               }}>
-                <Icon name={item.icon} size={18} color={page === item.id ? t.primary : t.textMuted} />
+                <Icon name={item.icon} size={18} color={item.id === 'logout' ? t.danger : (page === item.id ? t.primary : t.textMuted)} />
                 {item.label}
               </button>
             ))}
@@ -3291,24 +3296,6 @@ function App() {
               padding: 8, cursor: 'pointer', display: 'flex', alignItems: 'center',
             }}>
               <Icon name={theme === 'light' ? 'moon' : 'sun'} size={18} color={t.textSecondary} />
-            </button>
-            
-            <button onClick={handleLogout} style={{
-              display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px',
-              borderRadius: 10, border: `1px solid ${t.border}`,
-              background: t.bgCard, color: t.textSecondary,
-              fontSize: 13, fontWeight: 600, cursor: 'pointer',
-            }} className="desktop-nav">
-              <Icon name="logout" size={16} color={t.textSecondary} />
-              Logout
-            </button>
-
-            {/* Mobile Quick Logout */}
-            <button onClick={handleLogout} style={{
-              background: `${t.danger}11`, border: `1px solid ${t.danger}33`, borderRadius: 10,
-              padding: 8, cursor: 'pointer',
-            }} className="mobile-logout-btn" title="Logout">
-              <Icon name="logout" size={18} color={t.danger} />
             </button>
 
             {/* Mobile Menu Button */}
@@ -3332,23 +3319,13 @@ function App() {
                 display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
                 borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
                 background: page === item.id ? t.primaryLight : 'transparent',
-                color: page === item.id ? t.primary : t.textSecondary,
+                color: item.id === 'logout' ? t.danger : (page === item.id ? t.primary : t.textSecondary),
                 width: '100%', textAlign: 'left',
               }}>
-                <Icon name={item.icon} size={18} color={page === item.id ? t.primary : t.textMuted} />
+                <Icon name={item.icon} size={18} color={item.id === 'logout' ? t.danger : (page === item.id ? t.primary : t.textMuted)} />
                 {item.label}
               </button>
             ))}
-            {/* Logout inside Mobile Menu */}
-            <button onClick={handleLogout} style={{
-              display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
-              borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
-              background: 'transparent', color: t.danger,
-              width: '100%', textAlign: 'left',
-            }}>
-              <Icon name="logout" size={18} color={t.danger} />
-              Logout
-            </button>
           </div>
         )}
       </nav>
