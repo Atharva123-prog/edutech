@@ -609,9 +609,7 @@ function LandingPage({ onNavigate, t }) {
       }}>
         <div style={{
           maxWidth: 1300, margin: '0 auto', width: '100%',
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: 40, alignItems: 'center'
-        }}>
+        }} className="hero-grid">
           
           {/* Left Column: Student Boy Mascot Dev */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }} className="animate-in">
@@ -893,7 +891,7 @@ function LandingPage({ onNavigate, t }) {
             </div>
 
             {/* Core Values grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
+            <div className="core-values-grid">
               {[
                 { title: "24/7 AI Tutor", icon: "brain", desc: "Ava is always online to break down code, check your logic, and clear up tricky lesson doubts.", color: t.secondary },
                 { title: "Curated Bookstore", icon: "grid", desc: "Get immediate access to physical & digital textbooks shipped directly to your location.", color: t.primary },
@@ -956,8 +954,7 @@ function LandingPage({ onNavigate, t }) {
       <section style={{
         padding: '60px 20px', maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 1
       }}>
-        <div className="glass-card" style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24,
+        <div className="glass-card stats-grid" style={{
           borderRadius: 24, padding: '48px 32px',
         }}>
           {stats.map((s, i) => (
@@ -1366,8 +1363,8 @@ function Dashboard({ user, courses, enrollments, progressMap, onCourseClick, t, 
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '40px 20px' }}>
       {/* Welcome */}
-      <div className="animate-in" style={{
-        padding: '32px 36px', borderRadius: 24, background: t.gradient,
+      <div className="animate-in welcome-banner" style={{
+        background: t.gradient,
         marginBottom: 36, position: 'relative', overflow: 'hidden',
       }}>
         <div style={{
@@ -3049,7 +3046,7 @@ function App() {
             </div>
 
             {/* Public links */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }} className="desktop-nav">
               <button onClick={() => navigateTo('landing')} style={{
                 padding: '8px 14px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600,
                 background: page === 'landing' ? t.primaryLight : 'transparent',
@@ -3084,11 +3081,67 @@ function App() {
                 padding: '10px 22px', borderRadius: 10, border: 'none',
                 background: t.gradient, color: '#fff', fontSize: 14, fontWeight: 700,
                 cursor: 'pointer',
-              }}>
+              }} className="desktop-nav">
                 Sign In
+              </button>
+              {/* Mobile menu button for logged out users */}
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{
+                padding: 8, borderRadius: 10, border: `1px solid ${t.border}`,
+                background: t.bgInput, cursor: 'pointer',
+              }} className="mobile-menu-btn">
+                <Icon name="menu" size={20} color={t.textSecondary} />
               </button>
             </div>
           </div>
+          
+          {/* Mobile Menu for logged out users */}
+          {mobileMenuOpen && (
+            <div style={{
+              padding: '12px 24px 16px', borderTop: `1px solid ${t.borderLight}`,
+              display: 'flex', flexDirection: 'column', gap: 4,
+            }} className="mobile-menu animate-in">
+              <button onClick={() => navigateTo('landing')} style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
+                borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
+                background: page === 'landing' ? t.primaryLight : 'transparent',
+                color: page === 'landing' ? t.primary : t.textSecondary,
+                width: '100%', textAlign: 'left',
+              }}>
+                <Icon name="home" size={18} color={page === 'landing' ? t.primary : t.textMuted} />
+                Home
+              </button>
+              <button onClick={() => navigateTo('bookstore')} style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
+                borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
+                background: page === 'bookstore' ? t.primaryLight : 'transparent',
+                color: page === 'bookstore' ? t.primary : t.textMuted,
+                width: '100%', textAlign: 'left',
+              }}>
+                <Icon name="grid" size={18} color={page === 'bookstore' ? t.primary : t.textMuted} />
+                Bookstore
+              </button>
+              <button onClick={() => navigateTo('contact')} style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
+                borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
+                background: page === 'contact' ? t.primaryLight : 'transparent',
+                color: page === 'contact' ? t.primary : t.textSecondary,
+                width: '100%', textAlign: 'left',
+              }}>
+                <Icon name="mail" size={18} color={page === 'contact' ? t.primary : t.textMuted} />
+                Contact Us
+              </button>
+              <button onClick={() => navigateTo('auth')} style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
+                borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
+                background: page === 'auth' ? t.primaryLight : 'transparent',
+                color: page === 'auth' ? t.primary : t.textMuted,
+                width: '100%', textAlign: 'left',
+              }}>
+                <Icon name="user" size={18} color={page === 'auth' ? t.primary : t.textMuted} />
+                Sign In
+              </button>
+            </div>
+          )}
         </nav>
         <div style={{ paddingTop: 64 }}>
           {page === 'auth' && (
@@ -3227,15 +3280,15 @@ function App() {
               borderRadius: 10, border: `1px solid ${t.border}`,
               background: t.bgCard, color: t.textSecondary,
               fontSize: 13, fontWeight: 600, cursor: 'pointer',
-            }}>
+            }} className="desktop-nav">
               <Icon name="logout" size={16} color={t.textSecondary} />
               Logout
             </button>
             {/* Mobile Menu Button */}
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{
-              display: 'none', padding: 8, borderRadius: 10, border: `1px solid ${t.border}`,
+              padding: 8, borderRadius: 10, border: `1px solid ${t.border}`,
               background: t.bgInput, cursor: 'pointer',
-            }}>
+            }} className="mobile-menu-btn">
               <Icon name="menu" size={20} color={t.textSecondary} />
             </button>
           </div>
@@ -3246,7 +3299,7 @@ function App() {
           <div style={{
             padding: '12px 24px 16px', borderTop: `1px solid ${t.borderLight}`,
             display: 'flex', flexDirection: 'column', gap: 4,
-          }}>
+          }} className="mobile-menu animate-in">
             {navItems.map(item => (
               <button key={item.id} onClick={() => navigateTo(item.id)} style={{
                 display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
@@ -3259,6 +3312,16 @@ function App() {
                 {item.label}
               </button>
             ))}
+            {/* Logout inside Mobile Menu */}
+            <button onClick={handleLogout} style={{
+              display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px',
+              borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 600,
+              background: 'transparent', color: t.danger,
+              width: '100%', textAlign: 'left',
+            }}>
+              <Icon name="logout" size={18} color={t.danger} />
+              Logout
+            </button>
           </div>
         )}
       </nav>

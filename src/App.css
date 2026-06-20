@@ -297,3 +297,88 @@ input.premium-input:focus, textarea.premium-input:focus, select.premium-input:fo
   inset: 0;
   background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06), transparent 60%);
 }
+
+/* ─── Responsive Media Queries & Utility Classes ────────────────────────── */
+
+/* Show/Hide nav items based on device width */
+.mobile-menu-btn {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Welcome banner responsive padding */
+.welcome-banner {
+  padding: 32px 36px;
+  border-radius: 24px;
+}
+
+@media (max-width: 600px) {
+  .welcome-banner {
+    padding: 24px 20px !important;
+    border-radius: 16px !important;
+  }
+}
+
+/* Hero layout responsive stacking */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+  /* Push main hero content to the top when stacked */
+  .hero-grid > div:nth-child(2) {
+    order: -1;
+  }
+}
+
+/* Stats grid responsive columns */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* Core Values grid responsive columns */
+.core-values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .core-values-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Mobile dropdown menu styles */
+.mobile-menu {
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
