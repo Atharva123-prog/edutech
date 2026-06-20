@@ -9,9 +9,11 @@ import { CartDrawer, CheckoutModal } from './CartComponents';
 import { StudentBoyIllustration, StudentGirlIllustration } from './Illustrations';
 
 // ─── API Helper ────────────────────────────────────────────────────────────────
-const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname.startsWith("192.168.")
+const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:8000"
-  : "https://edubackend-q6ja.onrender.com";
+  : (window.location.hostname.startsWith("192.168.") || window.location.hostname.startsWith("10.") || window.location.hostname.startsWith("172."))
+    ? `http://${window.location.hostname}:8000`
+    : "https://edubackend-q6ja.onrender.com";
 
 const api = {
   _headers: (token) => {
