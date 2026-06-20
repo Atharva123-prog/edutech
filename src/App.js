@@ -2600,7 +2600,7 @@ function AdminPage({ token, courses, showToast, onRefresh, t, currentUser }) {
 }
 
 // ─── Profile Page ──────────────────────────────────────────────────────────────
-function ProfilePage({ user, enrollments, progressMap, courses, onCourseClick, t, token, onRefreshUser, showToast, orders = [] }) {
+function ProfilePage({ user, enrollments, progressMap, courses, onCourseClick, t, token, onRefreshUser, showToast, orders = [], onLogout }) {
   const enrolledCourses = enrollments.map(e => ({
     ...(e.course || {}),
     progress: progressMap[e.course?.id] ?? e.progress ?? 0,
@@ -2639,14 +2639,28 @@ function ProfilePage({ user, enrollments, progressMap, courses, onCourseClick, t
         </h2>
         <p style={{ fontSize: 14, color: t.textSecondary, marginBottom: 6 }}>{user?.email}</p>
         {user?.is_admin && (
-          <span style={{
-            display: 'inline-flex', alignItems: 'center', gap: 4,
-            padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700,
-            background: `${t.primary}15`, color: t.primary,
-          }}>
-            <Icon name="shield" size={14} color={t.primary} /> Admin
-          </span>
+          <div style={{ marginBottom: 12 }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 4,
+              padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700,
+              background: `${t.primary}15`, color: t.primary,
+            }}>
+              <Icon name="shield" size={14} color={t.primary} /> Admin
+            </span>
+          </div>
         )}
+        <div style={{ marginTop: 16 }}>
+          <button onClick={onLogout} style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            padding: '8px 16px', borderRadius: 10, border: `1px solid ${t.danger}33`,
+            background: `${t.danger}11`, color: t.danger,
+            fontSize: 14, fontWeight: 600, cursor: 'pointer',
+            transition: 'all 0.2s',
+          }}>
+            <Icon name="logout" size={16} color={t.danger} />
+            Log Out
+          </button>
+        </div>
       </div>
 
       {/* Stats */}
@@ -3288,6 +3302,15 @@ function App() {
               <Icon name="logout" size={16} color={t.textSecondary} />
               Logout
             </button>
+
+            {/* Mobile Quick Logout */}
+            <button onClick={handleLogout} style={{
+              background: `${t.danger}11`, border: `1px solid ${t.danger}33`, borderRadius: 10,
+              padding: 8, cursor: 'pointer',
+            }} className="mobile-logout-btn" title="Logout">
+              <Icon name="logout" size={18} color={t.danger} />
+            </button>
+
             {/* Mobile Menu Button */}
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{
               padding: 8, borderRadius: 10, border: `1px solid ${t.border}`,
@@ -3369,7 +3392,7 @@ function App() {
             user={user} enrollments={enrollments} progressMap={progressMap}
             courses={courses} onCourseClick={handleCourseClick} t={t}
             token={token} onRefreshUser={fetchUser} showToast={showToast}
-            orders={orders}
+            orders={orders} onLogout={handleLogout}
           />
         )}
       </div>

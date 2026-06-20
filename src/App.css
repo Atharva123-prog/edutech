@@ -301,7 +301,7 @@ input.premium-input:focus, textarea.premium-input:focus, select.premium-input:fo
 /* ─── Responsive Media Queries & Utility Classes ────────────────────────── */
 
 /* Show/Hide nav items based on device width */
-.mobile-menu-btn {
+.mobile-menu-btn, .mobile-logout-btn {
   display: none !important;
 }
 
@@ -309,7 +309,7 @@ input.premium-input:focus, textarea.premium-input:focus, select.premium-input:fo
   .desktop-nav {
     display: none !important;
   }
-  .mobile-menu-btn {
+  .mobile-menu-btn, .mobile-logout-btn {
     display: flex !important;
     align-items: center;
     justify-content: center;
