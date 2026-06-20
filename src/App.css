@@ -305,7 +305,7 @@ input.premium-input:focus, textarea.premium-input:focus, select.premium-input:fo
   display: none !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
   .desktop-nav {
     display: none !important;
   }
