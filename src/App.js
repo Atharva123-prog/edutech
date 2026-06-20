@@ -9,7 +9,9 @@ import { CartDrawer, CheckoutModal } from './CartComponents';
 import { StudentBoyIllustration, StudentGirlIllustration } from './Illustrations';
 
 // ─── API Helper ────────────────────────────────────────────────────────────────
-const API_BASE = "https://edubackend-q6ja.onrender.com";
+const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname.startsWith("192.168.")
+  ? "http://localhost:8000"
+  : "https://edubackend-q6ja.onrender.com";
 
 const api = {
   _headers: (token) => {
